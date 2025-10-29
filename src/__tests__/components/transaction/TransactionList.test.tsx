@@ -98,11 +98,12 @@ describe("TransactionList Component", () => {
       />
     );
 
-    const creditAmount = screen.getByText("+$100.00");
-    const debitAmount = screen.getByText("-$50.00");
+    const creditAmounts = screen.getAllByText("+$100.00");
+    const debitAmounts = screen.getAllByText("-$50.00");
 
-    expect(creditAmount).toHaveClass("text-green-600");
-    expect(debitAmount).toHaveClass("text-red-600");
+    // check first match (both mobile/desktop render in jsdom)
+    expect(creditAmounts[0]).toHaveClass("text-green-600");
+    expect(debitAmounts[0]).toHaveClass("text-red-600");
   });
 
   it("formats dates correctly", () => {
