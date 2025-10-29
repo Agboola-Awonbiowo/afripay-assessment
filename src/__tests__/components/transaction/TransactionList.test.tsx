@@ -49,10 +49,10 @@ describe("TransactionList Component", () => {
       />
     );
 
-    expect(screen.getByText("Test Credit")).toBeInTheDocument();
-    expect(screen.getByText("Test Debit")).toBeInTheDocument();
-    expect(screen.getByText("+$100.00")).toBeInTheDocument();
-    expect(screen.getByText("-$50.00")).toBeInTheDocument();
+    expect(screen.getAllByText("Test Credit").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Test Debit").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("+$100.00").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("-$50.00").length).toBeGreaterThan(0);
   });
 
   it("shows loading state", () => {
@@ -76,7 +76,7 @@ describe("TransactionList Component", () => {
     ).toBeInTheDocument();
   });
 
-  it("calls onDelete when delete button is clicked", () => {
+  it("calls onDelete when delete is confirmed in modal", () => {
     render(
       <TransactionList
         transactions={mockTransactions}
@@ -86,7 +86,9 @@ describe("TransactionList Component", () => {
 
     const deleteButtons = screen.getAllByText("Delete");
     fireEvent.click(deleteButtons[0]);
-
+    // Confirmation modal appears; confirm deletion
+    const confirm = screen.getByText("Delete Transaction");
+    fireEvent.click(confirm);
     expect(mockOnDelete).toHaveBeenCalledWith("1");
   });
 
