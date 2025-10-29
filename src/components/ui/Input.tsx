@@ -15,11 +15,11 @@ const Input: React.FC<InputProps> = ({
   ...props
 }) => {
   const generatedId = useId();
-  const inputId = id || generatedId;
+  const inputId = id || (label ? generatedId : undefined);
 
   return (
     <div className="w-full">
-      {label && (
+      {label && inputId && (
         <label
           htmlFor={inputId}
           className="block text-sm font-medium text-gray-700 mb-1"
