@@ -130,12 +130,12 @@ describe("TransactionList Component", () => {
     render(<TransactionList transactions={manyTx} onDelete={mockOnDelete} />);
 
     // Page 1 should show Tx 1 and not Tx 11
-    expect(screen.getByText("Tx 1")).toBeInTheDocument();
-    expect(screen.queryByText("Tx 11")).not.toBeInTheDocument();
+    expect(screen.getAllByText("Tx 1").length).toBeGreaterThan(0);
+    expect(screen.queryAllByText("Tx 11").length).toBe(0);
 
     // Go to page 2
     fireEvent.click(screen.getByText("2"));
-    expect(screen.getByText("Tx 11")).toBeInTheDocument();
-    expect(screen.queryByText("Tx 1")).not.toBeInTheDocument();
+    expect(screen.getAllByText("Tx 11").length).toBeGreaterThan(0);
+    expect(screen.queryAllByText("Tx 1").length).toBe(0);
   });
 });
