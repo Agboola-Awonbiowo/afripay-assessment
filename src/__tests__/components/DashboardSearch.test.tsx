@@ -88,6 +88,6 @@ describe("Dashboard search", () => {
 
     // Search by date
     fireEvent.change(input, { target: { value: "2025-10-02" } });
-    expect(screen.getByText("Salary")).toBeInTheDocument();
+    expect(screen.getAllByText("Salary").length).toBeGreaterThan(0);
   });
 });
