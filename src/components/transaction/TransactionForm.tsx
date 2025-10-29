@@ -218,7 +218,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           Cancel
         </Button>
         <Button type="submit" variant="primary" isLoading={isLoading}>
-          Add Transaction
+          {formData.type === "credit" ? "Add Money" : "Send Money"}
         </Button>
       </div>
     </form>
