@@ -2,44 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Transaction, TransactionFormData, FilterType } from "@/types";
 import { saveTransactions, loadTransactions } from "@/utils/storage";
 
-const generateDummyTransactions = (count: number): Transaction[] => {
-  const descriptionsCredit = [
-    "Salary",
-    "Transfer from John",
-    "Refund",
-    "Gift",
-    "Interest",
-    "Bonus",
-    "Cashback",
-  ];
-  const descriptionsDebit = [
-    "Groceries",
-    "Restaurant",
-    "Fuel",
-    "Electricity Bill",
-    "Internet",
-    "Rent",
-    "School Fees",
-  ];
-  const items: Transaction[] = [];
-  const now = new Date();
-  for (let i = 0; i < count; i++) {
-    const isCredit = i % 2 === 0; // alternate for variety
-    const amount = parseFloat((Math.random() * 900 + 100).toFixed(2));
-    const date = new Date(now);
-    date.setDate(now.getDate() - (i % 30));
-    items.push({
-      id: `${Date.now()}_${i}_${Math.random().toString(36).slice(2, 7)}`,
-      description: isCredit
-        ? descriptionsCredit[i % descriptionsCredit.length]
-        : descriptionsDebit[i % descriptionsDebit.length],
-      amount,
-      type: isCredit ? "credit" : "debit",
-      date: date.toISOString().split("T")[0],
-    });
-  }
-  return items;
-};
+// Note: seeding helper removed for production readiness
 
 export const useTransactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -49,13 +12,7 @@ export const useTransactions = () => {
   // Load transactions from localStorage on mount
   useEffect(() => {
     const loadedTransactions = loadTransactions();
-    if (loadedTransactions.length === 0) {
-      const seeded = generateDummyTransactions(100);
-      setTransactions(seeded);
-      saveTransactions(seeded);
-    } else {
-      setTransactions(loadedTransactions);
-    }
+    setTransactions(loadedTransactions);
     setIsLoading(false);
   }, []);
 
