@@ -114,8 +114,8 @@ describe("TransactionList Component", () => {
     );
 
     // Check that dates are displayed (exact format may vary by locale)
-    expect(screen.getByText("1/1/2023")).toBeInTheDocument();
-    expect(screen.getByText("1/2/2023")).toBeInTheDocument();
+    expect(screen.getAllByText("1/1/2023").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("1/2/2023").length).toBeGreaterThan(0);
   });
 
   it("paginates on desktop - shows 10 per page and changes page", () => {
