@@ -87,8 +87,10 @@ describe("TransactionList Component", () => {
     const deleteButtons = screen.getAllByText("Delete");
     fireEvent.click(deleteButtons[0]);
     // Confirmation modal appears; confirm deletion
-    const confirm = screen.getByText("Delete Transaction");
-    fireEvent.click(confirm);
+    const confirmButtons = screen.getAllByRole("button", {
+      name: "Delete Transaction",
+    });
+    fireEvent.click(confirmButtons[0]);
     expect(mockOnDelete).toHaveBeenCalledWith("1");
   });
 
